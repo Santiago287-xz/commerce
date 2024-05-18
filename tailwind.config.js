@@ -1,8 +1,9 @@
+import { nextui } from '@nextui-org/react';
 const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -33,9 +34,11 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true
   },
+  darkMode: "class",
   plugins: [
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
+    nextui({defaultTheme: "dark"}),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(
         {

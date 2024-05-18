@@ -1,9 +1,9 @@
-import Link from 'next/link';
-
-import FooterMenu from 'components/layout/footer-menu';
-import LogoSquare from 'components/logo-square';
+import { Image } from "@nextui-org/image";
 import { getMenu } from 'lib/shopify';
-import { Suspense } from 'react';
+import Link from 'next/link';
+import { FaTwitter } from "react-icons/fa";
+import { FiInstagram } from "react-icons/fi";
+import { siteConfig } from "../../app/site-config";
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
@@ -16,53 +16,68 @@ export default async function Footer() {
 
   return (
     <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        <div>
-          <Link className="flex items-center gap-2 text-black md:pt-1 dark:text-white" href="/">
-            <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
-          </Link>
-        </div>
-        <Suspense
-          fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
+      {/* Contenido del footer */}
+      <div className="container mx-auto py-8 px-4">
+          {/* Sección del contenido personalizado */}
+          <div className="col-span-2 flex flex-col items-center justify-center">
+            <div className="w-4/5 md:w-8/12">
+              <div className="flex flex-col gap-2 items-center lg:flex-row lg:justify-evenly lg:items-start w-full">
+                <div className="flex flex-col items-center lg:items-start gap-2">
+                  <p className="text-slate-400 text-xl">Métodos de Pago</p>
+                  <div className="flex items-center justify-center gap-4">
+                    <Image
+                      src={siteConfig.images.paymentMethods}
+                      alt="Método de Pago"
+                      width={320}
+                      height={320}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center lg:items-start gap-2">
+                  <p className="text-slate-400 text-xl text-center w-max">
+                    ¿Tienes alguna pregunta o comentario?
+                  </p>
+                  <p className="flex items-center gap-4 justify-start text-slate-200">
+                    {siteConfig.contact.gmail}
+                  </p>
+                  <p className="flex items-center gap-4 justify-start text-slate-200">
+                    Envíos a todo Argentina garantizados.
+                  </p>
+                </div>
+              </div>
             </div>
-          }
-        >
-          <FooterMenu menu={menu} />
-        </Suspense>
-        <div className="md:ml-auto">
-          <a
-            className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
-            aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
-          >
-            <span className="px-3">▲</span>
-            <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
-            <span className="px-3">Deploy</span>
-          </a>
-        </div>
+            <Image
+              src={siteConfig.images.principalLogo}
+              alt="Logo"
+              className="rounded-none scale-150 py-8"
+              width={225}
+              height={255}
+            />
+            <div className="flex items-center gap-4 mt-4">
+              <Link isExternal href={siteConfig.links.twitter}>
+                <FaTwitter className="w-8 h-8 text-white" />
+              </Link>
+              <Link isExternal href={siteConfig.links.instagram}>
+                <FiInstagram className="w-6 h-8 text-white" />
+              </Link>
+            </div>
+            <div>
+              <Link
+                isExternal
+                href={siteConfig.links.webcodebuilders}
+                className="flex items-center gap-1 text-current"
+              >
+                <span className="text-zinc-200">Powered by</span>
+                <p className="text-primary">WebCodeBuilders</p>
+              </Link>
+            </div>
+          </div>
       </div>
-      <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
-          <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
-          </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>Designed in California</p>
-          <p className="md:ml-auto">
-            <a href="https://vercel.com" className="text-black dark:text-white">
-              Crafted by ▲ Vercel
-            </a>
-          </p>
-        </div>
+      {/* Pie de página */}
+      <div className="bg-gray-200 dark:bg-gray-800 py-4 text-center">
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          &copy; {copyrightDate} {copyrightName}
+        </p>
       </div>
     </footer>
   );
